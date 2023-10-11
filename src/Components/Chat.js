@@ -79,7 +79,7 @@ useEffect(() => {
         
       </Flex>
       <Flex w="50%"  h="80%" flexDir="column" borderRadius="8px 10px 70px 0px" overflow="hidden" border="2px solid cyan">
-        <Flex h="90%" flexDir="column"  border="2px solid red"      overflowY="auto">
+        <Flex h="90%" flexDir="column"  overflowY="auto">
           
           {chats.map((val) => {
             let isMe = false
