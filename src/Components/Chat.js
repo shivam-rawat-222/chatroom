@@ -11,11 +11,9 @@ export default function Chat() {
   
   const [announcement,setannouncement] = useState([])
   const [chats,setchats] = useState([])
-  const url = "https://chatroombackend.vercel.app/";
+  const url = "https://glamorous-candy-chime.glitch.me/"
   
   const [user, setuser] = useState(localStorage.getItem("user"))
-
-  
 
   useEffect(() => {
 
@@ -26,30 +24,21 @@ export default function Chat() {
     })
 
     socket.emit("newjoined", { user })
-    socket.on("userdisconnect" ,(data)=>{
-      // setannouncement([...announcement,data])
-      console.log(data)
-  })
+  
+   
 
-    return ()=>{
-      socket.emit("disconnect",{user})
-      
-      socket.off()
-     
-      
-    }
-
-
-
-
-
-
-
-
-
-
-
-
+      socket.on("userjoined", ( data) => { 
+        // setchats([...chats,data])
+        setannouncement((prevAnnouncement) => [...prevAnnouncement, data]);
+        console.log(announcement)
+    
+        })
+    
+        socket.on("userdisconnect" ,(data)=>{
+          setannouncement((prevAnnouncement) => [...prevAnnouncement, data]);
+          console.log(announcement)
+          
+      })
 
   }, [])
 
@@ -58,41 +47,19 @@ export default function Chat() {
 useEffect(() => {
   socket.on("messagerec",(data)=>{
     setchats([...chats,data])
-    console.log(chats)
 
-    // socket.on("userjoined", ( data) => { 
-    //   setannouncement([...announcement,data]) 
-    //   console.log(data)
-    //   })
+
+
+
+
+  
   })
-  return () => {
-    socket.off();
-  }
 }, [chats])
-
-
-
-// useEffect(() => {
- 
-//   socket.on("userjoined", ( data) => { 
-//     setannouncement([...announcement,data]) 
-//     console.log(data)
-//     })
-  
-//   return () => {
-//     socket.off();
-//   }
-// }, [announcement])
-
-
-
-
-
-  
 
   let submitmessage = ()=>{
     if(socket){
     socket.emit("messagesent",({user:user , message:message , id:socket.id}))
+
     }
   }
 
@@ -105,7 +72,7 @@ useEffect(() => {
         {announcement.map((val)=>{
           return(
             <>
-            <Text color="cyan">{`${val.user} ${val.message}`}</Text>
+            <Text color="cyan">{`${val.message}`}</Text>
             </>
           )
         })}
@@ -141,18 +108,6 @@ useEffect(() => {
               </>
             )
           })}
-
-
-
-
-
-
-
-
-
-
-
-
 
         </Flex>
         <Flex h="10%"  p="10px">
