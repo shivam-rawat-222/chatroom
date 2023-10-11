@@ -26,7 +26,7 @@ let handlesub = ()=>{
             <Image src="./Images/chat.gif" boxSize="lg" borderRadius="100px"  />
           </Flex>
           <Flex  w="50%" justifyContent="center" alignItems="center"flexDir="column">
-          <Heading>Whats Your Name</Heading>
+          <Heading color="white">Whats Your Name</Heading>
             <Flex  w="70%" h="30%"justifyContent="center" alignItems="center" flexDir="column" gap="20px">
               
             
